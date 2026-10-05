@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MusicGuide - Mockup</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>MusicGuide</h1>
+    <p>Ghidul tău complet de explorat și învățat instrumente muzicale.</p>
+    <p class="app-count">3 instrumente, dintre care 2 active</p>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Adaugă instrument</h2>
+      <form class="item-form">
+        <label>
+          Nume instrument
+          <input type="text" name="titlu" placeholder="Ex: Vioară clasică" required />
+        </label>
+        <label>
+          Familie instrument
+          <select name="eticheta">
+            <option value="coarde">Coarde</option>
+            <option value="suflat">Suflat</option>
+            <option value="percutie">Percuție</option>
+          </select>
+        </label>
+        <button type="submit">Adaugă</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Instrumentele mele</h2>
+      <!-- Când lista e goală: <p class="empty">Nu există niciun element.</p> -->
+      <ul class="item-list">
+        <li class="item-card">
+          <div>
+            <h3>Chitară clasică</h3>
+            <span class="badge badge-coarde">Coarde</span>
+          </div>
+          <span class="status">De învățat</span>
+        </li>
+        <li class="item-card done">
+          <div>
+            <h3>Pian acustic</h3>
+            <span class="badge badge-coarde">Coarde</span>
+          </div>
+          <span class="status">Învățat</span>
+        </li>
+        <li class="item-card">
+          <div>
+            <h3>Saxofon alto</h3>
+            <span class="badge badge-suflat">Suflat</span>
+          </div>
+          <span class="status">De învățat</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Proiect Tehnologii Web</p>
+  </footer>
+</body>
+</html>
