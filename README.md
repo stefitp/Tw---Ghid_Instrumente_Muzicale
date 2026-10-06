@@ -53,4 +53,15 @@ Plain JavaScript, no DOM. instrumente.js holds the array and the functions that 
 - [x] Stage 2: data logic in JavaScript
 - [ ] Stage 3: Vite and React project
 
+## Verification table - Stage 2
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S2-R1 | JS file linked, logs on page load | [index.html#L70](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/blob/main/index.html#L70) | open page, F12 |
+| S2-R2 | 3+ items with id, name, state, tag | [instrumente.js#L4-L8](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/blob/main/instrumente.js#L4-L8) | read |
+| S2-R3 | list, count, search, add, toggle, delete | [instrumente.js#L11-L69](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/blob/main/instrumente.js#L11-L69) | console output |
+| S2-R4 | add rejects empty name and invalid tag | [instrumente.js#L37-L44](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/blob/main/instrumente.js#L37-L44) | last 2 console lines |
+| S2-R5 | original array unchanged after add | [instrumente.js#L86](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/blob/main/instrumente.js#L86) | console line |
+| S2-R6 | README Stage 2 section + AI log | [README.md](README.md), [ai-log/etapa-02.md](ai-log/etapa-02.md) | read |
+| S2-R7 | commit "Stage 2" pushed | [commits](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
 
