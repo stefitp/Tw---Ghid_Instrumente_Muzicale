@@ -65,3 +65,29 @@ Plain JavaScript, no DOM. instrumente.js holds the array and the functions that 
 | S2-R6 | README Stage 2 section + AI log | [README.md](README.md), [ai-log/etapa-02.md](ai-log/etapa-02.md) | read |
 | S2-R7 | commit "Stage 2" pushed | [commits](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
 
+## Stage 3: Vite and React project
+The app now lives in frontend/, built with Vite. The data from stage 2 moved into the main component; the list is still printed raw.
+
+## How to run
+cd frontend
+npm install
+npm run dev
+Then open the address printed in the terminal (http://localhost:5173).
+
+## Status
+- [x] Stage 1: static mockup
+- [x] Stage 2: data logic in JavaScript
+- [x] Stage 3: Vite and React project
+- [ ] Stage 4: components built from data
+
+## Verification table - Stage 3
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S3-R1 | npm run dev starts without errors | [frontend/package.json](frontend/package.json) | npm install, npm run dev |
+| S3-R2 | app name and counter computed from data | [frontend/src/App.jsx](frontend/src/App.jsx) | edit data, save |
+| S3-R3 | data from README, not from the example | [frontend/src/App.jsx](frontend/src/App.jsx) | compare with README |
+| S3-R4 | stage 1 styles reused | [frontend/src/App.css](frontend/src/App.css) | look at the page |
+| S3-R5 | node_modules ignored, build passes | [frontend/.gitignore](frontend/.gitignore) | npm run build |
+| S3-R6 | README Stage 3 section + AI log | [README.md](README.md), [ai-log/etapa-03.md](ai-log/etapa-03.md) | read |
+| S3-R7 | commit "Stage 3" pushed | [commit history](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
