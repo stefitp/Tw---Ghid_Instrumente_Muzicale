@@ -1,4 +1,4 @@
-// Pasul 2: Datele inițiale de test și valorile permise
+// Pasul 2: Datele initiale de test și valorile permise
 const FAMILII = ["coarde", "suflat", "percutie"];
 
 const instrumente = [
