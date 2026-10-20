@@ -1,35 +1,43 @@
 const ETICHETE_FAMILIE = {
-  coarde: "Coarde",
-  suflat: "Suflat",
-  percutie: "Percuție"
+  coarde: "Strings",
+  suflat: "Winds",
+  percutie: "Percussion"
 };
 
-const ICONITE_FAMILIE = {
-  coarde: "🎻",
-  suflat: "🎷",
-  percutie: "🥁"
-};
+function getIconita(instrument) {
+  const numeMic = instrument.nume.toLowerCase();
+  if (numeMic.includes("piano") || numeMic.includes("pian")) return "🎹";
+  if (numeMic.includes("guitar") || numeMic.includes("chitar")) return "🎸";
+  if (numeMic.includes("violin") || numeMic.includes("vioar")) return "🎻";
+  if (instrument.familie === "suflat") return "🎷";
+  if (instrument.familie === "percutie") return "🥁";
+  return "🎵";
+}
 
 export default function InstrumentCard({ instrument }) {
-  const iconita = ICONITE_FAMILIE[instrument.familie] || "🎵";
+  const iconita = getIconita(instrument);
 
   return (
     <li className={`item-card card-${instrument.familie} ${instrument.invatat ? "done" : ""}`}>
-      <div className="card-left">
-        <span className="instrument-avatar" aria-hidden="true">
+      <div className="card-top">
+        <span className="instrument-avatar rotating-avatar" aria-hidden="true">
           {iconita}
         </span>
-        <div className="instrument-info">
-          <h3>{instrument.nume}</h3>
-          <span className={`badge badge-${instrument.familie}`}>
-            {ETICHETE_FAMILIE[instrument.familie] || instrument.familie}
-          </span>
-        </div>
+        <span className="card-family-label">
+          {ETICHETE_FAMILIE[instrument.familie] || instrument.familie}
+        </span>
       </div>
 
-      <div className="card-right">
+      <div className="card-body">
+        <h3 className="instrument-title">{instrument.nume}</h3>
+      </div>
+
+      <div className="card-footer">
+        <span className={`badge badge-${instrument.familie}`}>
+          {ETICHETE_FAMILIE[instrument.familie] || instrument.familie}
+        </span>
         <span className="status">
-          {instrument.invatat ? "✓ Învățat" : "De învățat"}
+          {instrument.invatat ? "✓ Learned" : "To Learn"}
         </span>
       </div>
     </li>
