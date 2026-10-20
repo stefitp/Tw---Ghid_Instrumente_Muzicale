@@ -1,4 +1,5 @@
-//date de test 
+import InstrumentList from "./components/InstrumentList.jsx";
+
 const instrumente = [
   { id: 1, nume: "Chitară clasică", invatat: false, familie: "coarde" },
   { id: 2, nume: "Pian acustic", invatat: true, familie: "coarde" },
@@ -6,7 +7,6 @@ const instrumente = [
 ];
 
 export default function App() {
-  // nr de instrumente active 
   const deInvatat = instrumente.filter((item) => !item.invatat).length;
 
   return (
@@ -22,8 +22,7 @@ export default function App() {
       <main className="container">
         <section className="panel">
           <h2>Instrumentele mele</h2>
-          {/* date brute sub forma JSON (temporar) */}
-          <pre>{JSON.stringify(instrumente, null, 2)}</pre>
+          <InstrumentList instrumente={instrumente} />
         </section>
       </main>
     </>
