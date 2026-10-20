@@ -91,3 +91,25 @@ Then open the address printed in the terminal (http://localhost:5173).
 | S3-R5 | node_modules ignored, build passes | [frontend/.gitignore](frontend/.gitignore) | npm run build |
 | S3-R6 | README Stage 3 section + AI log | [README.md](README.md), [ai-log/etapa-03.md](ai-log/etapa-03.md) | read |
 | S3-R7 | commit "Stage 3" pushed | [commit history](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
+
+## Stage 4: components
+The list is rendered from the data, through two components
+- `InstrumentList` receives the whole array and renders one card per item
+- `InstrumentCard` receives a single item through props and displays it
+
+## Status
+- [x] Stage 3: Vite and React project
+- [x] Stage 4: components rendered from data
+- [ ] Stage 5: local state and events
+
+## Verification table - Stage 4
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S4-R1 | 2+ components in src/components/ | [frontend/src/components/](frontend/src/components/) | open folder |
+| S4-R2 | card receives data through props | [frontend/src/components/InstrumentCard.jsx](frontend/src/components/InstrumentCard.jsx) | read |
+| S4-R3 | map + key={id}, no console warnings | [frontend/src/components/InstrumentList.jsx](frontend/src/components/InstrumentList.jsx) | F12, Console |
+| S4-R4 | message for empty list | [frontend/src/components/InstrumentList.jsx](frontend/src/components/InstrumentList.jsx) | set array to [] |
+| S4-R5 | state changes the card look | [frontend/src/components/InstrumentCard.jsx](frontend/src/components/InstrumentCard.jsx) | toggle a done flag |
+| S4-R6 | README Stage 4 section + AI log | [README.md](README.md), [ai-log/etapa-04.md](ai-log/etapa-04.md) | read |
+| S4-R7 | commit "Stage 4" pushed | [commit history](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
