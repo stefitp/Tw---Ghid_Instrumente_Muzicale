@@ -1,11 +1,19 @@
+import { useState } from "react";
 import InstrumentList from "./components/InstrumentList.jsx";
 
-const instrumente = [
+// Datele inițiale ale catalogului (Etapa 5)
+const INSTRUMENTE_INITIALE = [
   { id: 1, nume: "Classical Guitar", invatat: false, familie: "coarde" },
   { id: 2, nume: "Acoustic Piano", invatat: true, familie: "coarde" },
   { id: 3, nume: "Alto Saxophone", invatat: false, familie: "suflat" }
 ];
 
+// Detectare temă sistem
+function temaInitiala() {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+// Mini sintetizator Web Audio API
 function playNote(freq) {
   try {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -26,6 +34,32 @@ function playNote(freq) {
 }
 
 export default function App() {
+  // S5-R1: State local pentru listă și temă
+  const [instrumente, setInstrumente] = useState(INSTRUMENTE_INITIALE);
+  const [tema, setTema] = useState(temaInitiala);
+
+  // S5-R2 & S5-R5: Comutare imutabilă cu forma funcțională
+  function handleToggle(id) {
+    setInstrumente((prev) =>
+      prev.map((inst) =>
+        inst.id === id ? { ...inst, invatat: !inst.invatat } : inst
+      )
+    );
+  }
+
+  // S5-R3 & S5-R5: Ștergere imutabilă cu filter
+  function handleDelete(id) {
+    setInstrumente((prev) => prev.filter((inst) => inst.id !== id));
+  }
+
+  // S5-R6: Comutare temă cu scriere directă pe <html>
+  function handleTema() {
+    const nouaTema = tema === "dark" ? "light" : "dark";
+    setTema(nouaTema);
+    document.documentElement.dataset.theme = nouaTema;
+  }
+
+  // S5-R4: Valori derivate (recalculate automat la fiecare randare)
   const total = instrumente.length;
   const learned = instrumente.filter((item) => item.invatat).length;
   const toLearn = total - learned;
@@ -44,6 +78,17 @@ export default function App() {
   return (
     <>
       <header className="app-header split-header">
+        {/* Buton comutare temă în colțul antetului */}
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={handleTema}
+          aria-pressed={tema === "dark"}
+        >
+          {tema === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+        </button>
+
+        {/* Note muzicale plutitoare în fundal */}
         <div className="floating-notes" aria-hidden="true">
           <span className="f-note fn-1">♪</span>
           <span className="f-note fn-2">♫</span>
@@ -53,7 +98,7 @@ export default function App() {
         </div>
 
         <div className="header-grid">
-          {/* Left Column: Branding, Title, Interactive Keyboard */}
+          {/* Coloana Stângă */}
           <div className="header-left">
             <div className="header-top-row">
               <span className="brand-logo" aria-hidden="true">𝄞</span>
@@ -86,7 +131,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Right Column: Studio Console Widget */}
+          {/* Coloana Dreaptă: Studio Console Widget */}
           <div className="header-right">
             <div className="studio-widget">
               <div className="widget-top">
@@ -129,6 +174,7 @@ export default function App() {
                 </div>
               </div>
 
+              {/* Elementul app-count cerut de barem */}
               <div className="app-count">
                 {total} instruments, of which {toLearn} to learn
               </div>
@@ -140,7 +186,11 @@ export default function App() {
       <main className="container">
         <section className="panel">
           <h2>My Collection</h2>
-          <InstrumentList instrumente={instrumente} />
+          <InstrumentList
+            instrumente={instrumente}
+            onToggle={handleToggle}
+            onDelete={handleDelete}
+          />
         </section>
       </main>
     </>

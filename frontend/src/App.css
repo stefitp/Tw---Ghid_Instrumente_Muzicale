@@ -4,7 +4,58 @@
   box-sizing: border-box;
 }
 
+/* =========================================
+   Tema Luminoasă (Implicită)
+   ========================================= */
 :root {
+  --bg: #f5f3ef;
+  --card: #ffffff;
+  --card-hover: #faf8f5;
+  --text: #1a1714;
+  --muted: #736b63;
+  --border: #e3ded8;
+  --accent: #d97706;
+  --accent-soft: rgba(217, 119, 6, 0.12);
+  --header-text: #ffffff;
+
+  --coarde: #ea580c;
+  --suflat: #0284c7;
+  --percutie: #e11d48;
+  --danger: #dc2626;
+
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================
+   Tema Întunecată a Sistemului (dacă nu e aleasă explicit tema luminoasă)
+   ========================================= */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c0b0a;
+    --card: #161412;
+    --card-hover: #1f1c19;
+    --text: #f7f5f0;
+    --muted: #9c9388;
+    --border: #2c2722;
+    --accent: #f59e0b;
+    --accent-soft: rgba(245, 158, 11, 0.12);
+    --header-text: #ffffff;
+
+    --coarde: #f97316;
+    --suflat: #06b6d4;
+    --percutie: #f43f5e;
+    --danger: #ef4444;
+
+    --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* =========================================
+   Tema Întunecată Aleasă Explicit prin Buton
+   ========================================= */
+:root[data-theme="dark"] {
   --bg: #0c0b0a;
   --card: #161412;
   --card-hover: #1f1c19;
@@ -13,10 +64,12 @@
   --border: #2c2722;
   --accent: #f59e0b;
   --accent-soft: rgba(245, 158, 11, 0.12);
+  --header-text: #ffffff;
 
   --coarde: #f97316;
   --suflat: #06b6d4;
   --percutie: #f43f5e;
+  --danger: #ef4444;
 
   --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.6);
@@ -30,15 +83,16 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 /* =========================================
-   Split-Layout Header (Asimetric & Studio)
+   Header cu Buton de Temă
    ========================================= */
 .app-header.split-header {
   position: relative;
   overflow: hidden;
-  padding: 68px 32px;
+  padding: 72px 32px 64px;
   background-color: #12100e;
   background-image: 
     radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 55%),
@@ -47,6 +101,33 @@ body {
   background-size: cover;
   background-position: center;
   border-bottom: 2px solid rgba(245, 158, 11, 0.25);
+  color: var(--header-text);
+}
+
+/* Butonul de comutare a temei */
+.theme-toggle {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  z-index: 10;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  background: rgba(22, 20, 18, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-1px);
 }
 
 .header-grid {
@@ -60,7 +141,6 @@ body {
   gap: 48px;
 }
 
-/* Coloana Stânga */
 .header-left {
   text-align: left;
 }
@@ -73,7 +153,6 @@ body {
   border-radius: 999px;
   background: rgba(22, 20, 18, 0.7);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(245, 158, 11, 0.25);
   margin-bottom: 16px;
 }
@@ -174,13 +253,12 @@ body {
   color: #fff;
 }
 
-/* Coloana Dreapta: Console Widget */
+/* Studio Console Widget */
 .studio-widget {
   padding: 26px;
   border-radius: 20px;
   background: rgba(22, 20, 18, 0.82);
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(245, 158, 11, 0.28);
   box-shadow: var(--shadow-lg), inset 0 0 24px rgba(245, 158, 11, 0.04);
 }
@@ -201,7 +279,6 @@ body {
   color: var(--accent);
 }
 
-/* Sound Wave Visualizer */
 .sound-wave-crazy {
   display: flex;
   align-items: flex-end;
@@ -223,7 +300,6 @@ body {
 .bar-5 { height: 35%; animation-delay: 0.15s; }
 .bar-6 { height: 75%; animation-delay: 0.4s; }
 
-/* Grid Statistici */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -325,6 +401,7 @@ body {
   border-radius: 20px;
   padding: 32px;
   box-shadow: var(--shadow-sm);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .panel h2 {
@@ -340,40 +417,38 @@ body {
 }
 
 /* =========================================
-   Grid & Carduri cu Rotire 3D Stânga -> Dreapta
+   Carduri & Formular Controlat (Etapa 5)
    ========================================= */
 .item-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 32px;
-  perspective: 1200px; /* Adâncime 3D esențială pentru rotirea în spațiu */
+  perspective: 1200px;
 }
 
 .item-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 215px;
+  min-height: 220px;
   padding: 24px;
-  background: #1b1916;
+  background: var(--card);
   border-radius: 16px;
   border: 1px solid var(--border);
   border-top: 4px solid var(--accent);
   box-shadow: var(--shadow-sm);
   position: relative;
   transform-style: preserve-3d;
-  
-  /* Rotire continuă stânga -> dreapta */
   animation: rotateLeftToRight 5s ease-in-out infinite alternate;
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
               box-shadow 0.3s ease, 
-              border-color 0.3s ease;
+              border-color 0.3s ease,
+              background 0.25s ease;
 }
 
-/* Decalare pe fiecare card */
 .item-card:nth-child(1) { animation-delay: 0s; }
 .item-card:nth-child(2) { animation-delay: 1.2s; }
 .item-card:nth-child(3) { animation-delay: 2.4s; }
@@ -382,21 +457,12 @@ body {
 .item-card.card-suflat { border-top-color: var(--suflat); }
 .item-card.card-percutie { border-top-color: var(--percutie); }
 
-/* La hover oprim rotația și evidențiem cardul */
 .item-card:hover {
   animation-play-state: paused;
   transform: translateY(-8px) scale(1.04);
   background: var(--card-hover);
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.75);
+  box-shadow: var(--shadow-lg);
   border-color: rgba(245, 158, 11, 0.5);
-}
-
-.item-card.card-coarde:hover {
-  box-shadow: 0 18px 40px rgba(249, 115, 22, 0.25);
-}
-
-.item-card.card-suflat:hover {
-  box-shadow: 0 18px 40px rgba(6, 182, 212, 0.25);
 }
 
 .card-top {
@@ -405,7 +471,6 @@ body {
   align-items: center;
 }
 
-/* Avatar instrument */
 .instrument-avatar.rotating-avatar {
   font-size: 2rem;
   display: flex;
@@ -413,9 +478,9 @@ body {
   justify-content: center;
   width: 52px;
   height: 52px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(245, 158, 11, 0.08);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
   animation: autoSpinTilt 6s ease-in-out infinite;
   transform-style: preserve-3d;
 }
@@ -432,31 +497,55 @@ body {
   color: var(--muted);
 }
 
+/* Corpul cardului cu checkbox controlat */
 .card-body {
   margin: 18px 0;
+}
+
+.instrument-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.instrument-main input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 
 .instrument-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 800;
   letter-spacing: -0.3px;
-  color: #fff;
+  color: var(--text);
+  transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
+/* Subsolul cardului */
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--border);
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .badge {
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.6px;
@@ -468,18 +557,38 @@ body {
 .badge-percutie { background-color: var(--percutie); }
 
 .status {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  padding: 5px 12px;
+  padding: 4px 10px;
   border-radius: 6px;
   background: var(--accent-soft);
   color: var(--accent);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid var(--border);
 }
 
+/* Butonul Danger de ștergere (Etapa 5) */
+.btn-danger {
+  border: 1px solid var(--danger);
+  background: transparent;
+  color: var(--danger);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-danger:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: scale(1.04);
+}
+
+/* Card completat (done) */
 .item-card.done {
-  opacity: 0.5;
-  background: #141210;
+  opacity: 0.55;
   border-top-style: dashed;
 }
 
@@ -489,36 +598,28 @@ body {
 }
 
 .item-card.done .status {
-  background: rgba(255, 255, 255, 0.04);
-  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--muted);
   border-color: transparent;
 }
 
 .empty {
   text-align: center;
-  padding: 36px 16px;
+  padding: 40px 16px;
   color: var(--muted);
   font-style: italic;
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 /* =========================================
-   Keyframe Animations
+   Animații
    ========================================= */
-/* Rotire continuă 3D pe orizontală: Stânga -> Dreapta */
 @keyframes rotateLeftToRight {
-  0% {
-    transform: rotateY(-16deg) translateY(0px);
-  }
-  50% {
-    transform: rotateY(0deg) translateY(-6px);
-  }
-  100% {
-    transform: rotateY(16deg) translateY(0px);
-  }
+  0% { transform: rotateY(-14deg) translateY(0px); }
+  50% { transform: rotateY(0deg) translateY(-6px); }
+  100% { transform: rotateY(14deg) translateY(0px); }
 }
 
-/* Rotire și înclinare fină pe iconița instrumentului */
 @keyframes autoSpinTilt {
   0% { transform: rotate(0deg) scale(1); }
   25% { transform: rotate(8deg) scale(1.08); }
@@ -533,7 +634,6 @@ body {
   100% { transform: rotate(360deg) scale(1.05); }
 }
 
-/* Note plutitoare în fundal */
 .floating-notes {
   position: absolute;
   inset: 0;
@@ -574,27 +674,20 @@ body {
   outline-offset: 3px;
 }
 
-/* =========================================
-   Responsive sub 900px & 700px
-   ========================================= */
 @media (max-width: 900px) {
   .header-grid {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-
   .header-left {
     text-align: center;
   }
-
   .header-subtitle {
     margin: 0 auto 20px auto;
   }
-
   .mini-piano {
     align-items: center;
   }
-
   .app-header .app-count {
     text-align: center;
   }
@@ -602,32 +695,25 @@ body {
 
 @media (max-width: 700px) {
   .app-header.split-header {
-    padding: 44px 16px;
+    padding: 56px 16px 40px;
   }
-
+  .theme-toggle {
+    top: 14px;
+    right: 16px;
+  }
   .crazy-title {
     font-size: 2.5rem;
   }
-
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 8px;
   }
-
-  .piano-key {
-    width: 28px;
-    height: 46px;
-    font-size: 0.75rem;
-  }
-
   .container {
     width: 95%;
   }
-
   .panel {
     padding: 18px;
   }
-
   .item-list {
     grid-template-columns: 1fr;
   }
