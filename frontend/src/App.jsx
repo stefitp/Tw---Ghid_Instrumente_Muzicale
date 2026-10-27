@@ -8,7 +8,6 @@ const INSTRUMENTE_INITIALE = [
   { id: 3, nume: "Alto Saxophone", invatat: false, familie: "suflat" }
 ];
 
-// Detectare temă sistem
 function temaInitiala() {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
@@ -29,16 +28,13 @@ function playNote(freq) {
     osc.start();
     osc.stop(ctx.currentTime + 0.35);
   } catch {
-    // Audio context fallback
   }
 }
 
 export default function App() {
-  // S5-R1: State local pentru listă și temă
   const [instrumente, setInstrumente] = useState(INSTRUMENTE_INITIALE);
   const [tema, setTema] = useState(temaInitiala);
 
-  // S5-R2 & S5-R5: Comutare imutabilă cu forma funcțională
   function handleToggle(id) {
     setInstrumente((prev) =>
       prev.map((inst) =>
@@ -47,12 +43,10 @@ export default function App() {
     );
   }
 
-  // S5-R3 & S5-R5: Ștergere imutabilă cu filter
   function handleDelete(id) {
     setInstrumente((prev) => prev.filter((inst) => inst.id !== id));
   }
 
-  // S5-R6: Comutare temă cu scriere directă pe <html>
   function handleTema() {
     const nouaTema = tema === "dark" ? "light" : "dark";
     setTema(nouaTema);

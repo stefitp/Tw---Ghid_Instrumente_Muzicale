@@ -13,23 +13,30 @@ An interactive musical instruments catalog to organize and track practice goals.
 | user | relation | the owner of the item (from week 11) |
 
 Sample data used across all stages:
-1. Chitară clasică, active, Strings
-2. Pian acustic, done, Strings
-3. Saxofon alto, active, Winds
+1. Classical Guitar, active, Strings
+2. Acoustic Piano, done, Strings
+3. Alto Saxophone, active, Winds
 
 ## How to run
-Open index.html in a browser. No build step, no server.
+cd frontend
+npm install
+npm run dev
+Then open the address printed in the terminal (http://localhost:5173).
 
 ## AI usage
 | Tool | Used for |
 | :--- | :--- |
-| Gemini | Project setup, initial HTML semantic layout, CSS variables and dark mode configuration |
+| Gemini | Project setup, initial HTML semantic layout, CSS variables and dark mode configuration, state management and event handling |
 
 Details per stage: see the ai-log/ folder.
 
 ## Status
 - [x] Stage 1: static mockup
-- [ ] Stage 2: data logic in JavaScript
+- [x] Stage 2: data logic in JavaScript
+- [x] Stage 3: Vite and React project
+- [x] Stage 4: components rendered from data
+- [x] Stage 5: local state and events
+- [ ] Stage 6: loading data from a mock API
 
 ## Verification table
 
@@ -43,15 +50,9 @@ Details per stage: see the ai-log/ folder.
 | S1-R6 | 2 columns on desktop, 1 under 700px | [style.css#L181-L185](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/blob/8ebce5d2dccec1f0c99eb202801179e05738b43b/style.css#L181-L185) | resize < 700px |
 | S1-R7 | visible focus, readable dark theme | [style.css#L188-L197](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/blob/8ebce5d2dccec1f0c99eb202801179e05738b43b/style.css#L188-L197) | Tab; dark mode |
 | S1-R8 | commit "Stage 1" pushed | [commit 8ebce5d](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commit/8ebce5d2dccec1f0c99eb202801179e05738b43b) | commit history |
- 
 
 ## Stage 2: data logic
 Plain JavaScript, no DOM. instrumente.js holds the array and the functions that read and change it. Results are printed in the browser console (F12).
-
-## Status
-- [x] Stage 1: static mockup
-- [x] Stage 2: data logic in JavaScript
-- [ ] Stage 3: Vite and React project
 
 ## Verification table - Stage 2
 
@@ -68,18 +69,6 @@ Plain JavaScript, no DOM. instrumente.js holds the array and the functions that 
 ## Stage 3: Vite and React project
 The app now lives in frontend/, built with Vite. The data from stage 2 moved into the main component; the list is still printed raw.
 
-## How to run
-cd frontend
-npm install
-npm run dev
-Then open the address printed in the terminal (http://localhost:5173).
-
-## Status
-- [x] Stage 1: static mockup
-- [x] Stage 2: data logic in JavaScript
-- [x] Stage 3: Vite and React project
-- [ ] Stage 4: components built from data
-
 ## Verification table - Stage 3
 
 | ID | Requirement | Where (permalink) | How to check |
@@ -93,14 +82,9 @@ Then open the address printed in the terminal (http://localhost:5173).
 | S3-R7 | commit "Stage 3" pushed | [commit history](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
 
 ## Stage 4: components
-The list is rendered from the data, through two components
+The list is rendered from the data, through two components:
 - `InstrumentList` receives the whole array and renders one card per item
 - `InstrumentCard` receives a single item through props and displays it
-
-## Status
-- [x] Stage 3: Vite and React project
-- [x] Stage 4: components rendered from data
-- [ ] Stage 5: local state and events
 
 ## Verification table - Stage 4
 
@@ -113,3 +97,20 @@ The list is rendered from the data, through two components
 | S4-R5 | state changes the card look | [frontend/src/components/InstrumentCard.jsx](frontend/src/components/InstrumentCard.jsx) | toggle a done flag |
 | S4-R6 | README Stage 4 section + AI log | [README.md](README.md), [ai-log/etapa-04.md](ai-log/etapa-04.md) | read |
 | S4-R7 | commit "Stage 4" pushed | [commit history](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
+
+## Stage 5: local state and events
+The list lives in React state. Checking and deleting work from the page, and the counters in the header follow automatically. A button in the header switches between light and dark mode. Changes are lost on refresh, which is what stage 6 and stage 10 fix. 
+
+## Verification table - Stage 5
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S5-R1 | list kept in useState, in App | [frontend/src/App.jsx](frontend/src/App.jsx) | read |
+| S5-R2 | toggling changes state and card look | [frontend/src/App.jsx](frontend/src/App.jsx), [frontend/src/components/InstrumentCard.jsx](frontend/src/components/InstrumentCard.jsx) | click a checkbox |
+| S5-R3 | delete removes the item | [frontend/src/App.jsx](frontend/src/App.jsx), [frontend/src/components/InstrumentCard.jsx](frontend/src/components/InstrumentCard.jsx) | click Delete |
+| S5-R4 | header counter derived, not in state | [frontend/src/App.jsx](frontend/src/App.jsx) | toggle, watch header |
+| S5-R5 | immutable updates (no push, splice, assignment) | [frontend/src/App.jsx](frontend/src/App.jsx) | read |
+| S5-R6 | light/dark toggle: state + data-theme on html | [frontend/src/App.jsx](frontend/src/App.jsx), [frontend/src/App.css](frontend/src/App.css) | click the button, both system themes |
+| S5-R7 | no console warnings; README + AI log | [README.md](README.md), [ai-log/etapa-05.md](ai-log/etapa-05.md) | F12, Console |
+| S5-R8 | commit "Stage 5" pushed | [commit history](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
+
