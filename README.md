@@ -114,3 +114,18 @@ The list lives in React state. Checking and deleting work from the page, and the
 | S5-R7 | no console warnings; README + AI log | [README.md](README.md), [ai-log/etapa-05.md](ai-log/etapa-05.md) | F12, Console |
 | S5-R8 | commit "Stage 5" pushed | [commit history](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
 
+
+## Stage 6: data from a mock API
+The list is served by json-server from db.json. The app fetches it on load and shows a loading state and an error state.
+
+## Verification table - Stage 6
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S6-R1 | npm run api starts, route shows JSON | [frontend/package.json](frontend/package.json), [frontend/db.json](frontend/db.json) | open localhost:3001/instrumente |
+| S6-R2 | data no longer in React code | [frontend/src/App.jsx](frontend/src/App.jsx) | read useState([]) |
+| S6-R3 | loading message while waiting | [frontend/src/App.jsx](frontend/src/App.jsx) | --delay 4000 |
+| S6-R4 | error message when API is down | [frontend/src/App.jsx](frontend/src/App.jsx) | stop npm run api, refresh |
+| S6-R5 | fetch only in api.js, URL from env | [frontend/src/api.js](frontend/src/api.js), [frontend/.env.example](frontend/.env.example) | search for fetch |
+| S6-R6 | README Stage 6 section + AI log | [README.md](README.md), [ai-log/etapa-06.md](ai-log/etapa-06.md) | read |
+| S6-R7 | commit "Stage 6" pushed | [commit history](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
