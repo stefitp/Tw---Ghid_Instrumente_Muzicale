@@ -1,18 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InstrumentList from "./components/InstrumentList.jsx";
-
-// Datele inițiale ale catalogului (Etapa 5)
-const INSTRUMENTE_INITIALE = [
-  { id: 1, nume: "Classical Guitar", invatat: false, familie: "coarde" },
-  { id: 2, nume: "Acoustic Piano", invatat: true, familie: "coarde" },
-  { id: 3, nume: "Alto Saxophone", invatat: false, familie: "suflat" }
-];
+import { fetchInstrumente } from "./api.js";
 
 function temaInitiala() {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-// Mini sintetizator Web Audio API
 function playNote(freq) {
   try {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -28,12 +21,42 @@ function playNote(freq) {
     osc.start();
     osc.stop(ctx.currentTime + 0.35);
   } catch {
+    // Fallback audio context
   }
 }
 
 export default function App() {
-  const [instrumente, setInstrumente] = useState(INSTRUMENTE_INITIALE);
+  const [instrumente, setInstrumente] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [tema, setTema] = useState(temaInitiala);
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function load() {
+      try {
+        const data = await fetchInstrumente();
+        if (!ignore) {
+          setInstrumente(data);
+        }
+      } catch (err) {
+        if (!ignore) {
+          setError(err.message);
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    }
+
+    load();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   function handleToggle(id) {
     setInstrumente((prev) =>
@@ -53,7 +76,6 @@ export default function App() {
     document.documentElement.dataset.theme = nouaTema;
   }
 
-  // S5-R4: Valori derivate (recalculate automat la fiecare randare)
   const total = instrumente.length;
   const learned = instrumente.filter((item) => item.invatat).length;
   const toLearn = total - learned;
@@ -72,7 +94,6 @@ export default function App() {
   return (
     <>
       <header className="app-header split-header">
-        {/* Buton comutare temă în colțul antetului */}
         <button
           type="button"
           className="theme-toggle"
@@ -82,7 +103,6 @@ export default function App() {
           {tema === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
         </button>
 
-        {/* Note muzicale plutitoare în fundal */}
         <div className="floating-notes" aria-hidden="true">
           <span className="f-note fn-1">♪</span>
           <span className="f-note fn-2">♫</span>
@@ -92,7 +112,6 @@ export default function App() {
         </div>
 
         <div className="header-grid">
-          {/* Coloana Stângă */}
           <div className="header-left">
             <div className="header-top-row">
               <span className="brand-logo" aria-hidden="true">𝄞</span>
@@ -125,7 +144,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Coloana Dreaptă: Studio Console Widget */}
           <div className="header-right">
             <div className="studio-widget">
               <div className="widget-top">
@@ -168,7 +186,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Elementul app-count cerut de barem */}
               <div className="app-count">
                 {total} instruments, of which {toLearn} to learn
               </div>
@@ -180,11 +197,22 @@ export default function App() {
       <main className="container">
         <section className="panel">
           <h2>My Collection</h2>
-          <InstrumentList
-            instrumente={instrumente}
-            onToggle={handleToggle}
-            onDelete={handleDelete}
-          />
+
+          {loading && <p className="info">Se încarcă catalogul muzical...</p>}
+
+          {error && (
+            <p className="error">
+              Nu am putut încărca datele: {error}. Rulează <code>npm run api</code>?
+            </p>
+          )}
+
+          {!loading && !error && (
+            <InstrumentList
+              instrumente={instrumente}
+              onToggle={handleToggle}
+              onDelete={handleDelete}
+            />
+          )}
         </section>
       </main>
     </>

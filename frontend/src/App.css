@@ -4,9 +4,6 @@
   box-sizing: border-box;
 }
 
-/* =========================================
-   Tema Luminoasă (Implicită)
-   ========================================= */
 :root {
   --bg: #f5f3ef;
   --card: #ffffff;
@@ -23,13 +20,13 @@
   --percutie: #e11d48;
   --danger: #dc2626;
 
+  --error-bg: #fdf2f8;
+  --error-border: #fbcfe8;
+
   --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.12);
 }
 
-/* =========================================
-   Tema Întunecată a Sistemului (dacă nu e aleasă explicit tema luminoasă)
-   ========================================= */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0c0b0a;
@@ -47,14 +44,14 @@
     --percutie: #f43f5e;
     --danger: #ef4444;
 
+    --error-bg: #3b1d2e;
+    --error-border: #6b2a4a;
+
     --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
     --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.6);
   }
 }
 
-/* =========================================
-   Tema Întunecată Aleasă Explicit prin Buton
-   ========================================= */
 :root[data-theme="dark"] {
   --bg: #0c0b0a;
   --card: #161412;
@@ -71,6 +68,9 @@
   --percutie: #f43f5e;
   --danger: #ef4444;
 
+  --error-bg: #3b1d2e;
+  --error-border: #6b2a4a;
+
   --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.6);
 }
@@ -86,9 +86,6 @@ body {
   transition: background 0.25s ease, color 0.25s ease;
 }
 
-/* =========================================
-   Header cu Buton de Temă
-   ========================================= */
 .app-header.split-header {
   position: relative;
   overflow: hidden;
@@ -104,7 +101,6 @@ body {
   color: var(--header-text);
 }
 
-/* Butonul de comutare a temei */
 .theme-toggle {
   position: absolute;
   top: 18px;
@@ -195,7 +191,6 @@ body {
   line-height: 1.6;
 }
 
-/* Mini Pian */
 .mini-piano {
   display: inline-flex;
   flex-direction: column;
@@ -253,7 +248,6 @@ body {
   color: #fff;
 }
 
-/* Studio Console Widget */
 .studio-widget {
   padding: 26px;
   border-radius: 20px;
@@ -383,9 +377,6 @@ body {
   text-align: right;
 }
 
-/* =========================================
-   Container & Panou
-   ========================================= */
 .container {
   max-width: 1250px;
   width: 92%;
@@ -416,9 +407,30 @@ body {
   padding-bottom: 14px;
 }
 
-/* =========================================
-   Carduri & Formular Controlat (Etapa 5)
-   ========================================= */
+.info {
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-style: italic;
+  padding: 18px 0;
+}
+
+.error {
+  color: var(--danger);
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.error code {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
 .item-list {
   list-style: none;
   padding: 0;
@@ -497,7 +509,6 @@ body {
   color: var(--muted);
 }
 
-/* Corpul cardului cu checkbox controlat */
 .card-body {
   margin: 18px 0;
 }
@@ -527,7 +538,6 @@ body {
   transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
-/* Subsolul cardului */
 .card-footer {
   display: flex;
   justify-content: space-between;
@@ -566,7 +576,6 @@ body {
   border: 1px solid var(--border);
 }
 
-/* Butonul Danger de ștergere (Etapa 5) */
 .btn-danger {
   border: 1px solid var(--danger);
   background: transparent;
@@ -586,7 +595,6 @@ body {
   transform: scale(1.04);
 }
 
-/* Card completat (done) */
 .item-card.done {
   opacity: 0.55;
   border-top-style: dashed;
@@ -611,9 +619,6 @@ body {
   font-size: 1.05rem;
 }
 
-/* =========================================
-   Animații
-   ========================================= */
 @keyframes rotateLeftToRight {
   0% { transform: rotateY(-14deg) translateY(0px); }
   50% { transform: rotateY(0deg) translateY(-6px); }

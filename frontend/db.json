@@ -1,0 +1,34 @@
+{
+  "instrumente": [
+    {
+      "id": 1,
+      "nume": "Classical Guitar",
+      "invatat": false,
+      "familie": "coarde"
+    },
+    {
+      "id": 2,
+      "nume": "Acoustic Piano",
+      "invatat": true,
+      "familie": "coarde"
+    },
+    {
+      "id": 3,
+      "nume": "Alto Saxophone",
+      "invatat": false,
+      "familie": "suflat"
+    },
+    {
+      "id": 4,
+      "nume": "Electronic Drums",
+      "invatat": true,
+      "familie": "percutie"
+    },
+    {
+      "id": 5,
+      "nume": "Concert Flute",
+      "invatat": false,
+      "familie": "suflat"
+    }
+  ]
+}
