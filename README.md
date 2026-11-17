@@ -129,3 +129,29 @@ The list is served by json-server from db.json. The app fetches it on load and s
 | S6-R5 | fetch only in api.js, URL from env | [frontend/src/api.js](frontend/src/api.js), [frontend/.env.example](frontend/.env.example) | search for fetch |
 | S6-R6 | README Stage 6 section + AI log | [README.md](README.md), [ai-log/etapa-06.md](ai-log/etapa-06.md) | read |
 | S6-R7 | commit "Stage 6" pushed | [commit history](https://github.com/stefitp/Tw---Ghid_Instrumente_Muzicale/commits/main) | commit history |
+
+## Stage 7: form and validation
+Instruments can be added directly from the page using a controlled and validated form (`InstrumentForm.jsx`). Every change (add, toggle, delete) is sent to the mock API (`POST`, `PATCH`, `DELETE`) before updating the UI state, and `tw.json` along with `data-testid` attributes are configured for automated verification.
+
+## Status
+- [x] Stage 1: static mockup
+- [x] Stage 2: interactive logic
+- [x] Stage 3: component decomposition
+- [x] Stage 4: state management and derived counters
+- [x] Stage 5: CSS variables and theme toggle
+- [x] Stage 6: data from a mock API
+- [x] Stage 7: form and validation
+- [ ] Stage 8: routing and detail page
+
+## Verification Table - Stage 7
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S7-R1 | controlled form: `value` + `onChange` on every field | `frontend/src/components/InstrumentForm.jsx` | read |
+| S7-R2 | empty title shows an error, nothing is sent | `frontend/src/components/InstrumentForm.jsx` (`valideaza`) | submit empty, watch Network |
+| S7-R3 | added item shows in the list and survives refresh | `frontend/src/App.jsx` (`handleAdd`), `frontend/src/api.js` | add, refresh |
+| S7-R4 | toggle and delete survive refresh | `frontend/src/App.jsx` | toggle/delete, refresh |
+| S7-R5 | button disabled while sending, form cleared only on success | `frontend/src/components/InstrumentForm.jsx` | `--delay 3000`; stop API and submit |
+| S7-R6 | `tw.json` and the `data-testid` attributes from table 7.3 | `tw.json`, `frontend/src/components/InstrumentCard.jsx` | `querySelectorAll` in the console |
+| S7-R7 | README Stage 7 section + AI log | `README.md`, `ai-log/etapa-07.md` | read |
+| S7-R8 | commit `"Stage 7"` pushed | link to the commit | commit history |
+
