@@ -155,3 +155,29 @@ Instruments can be added directly from the page using a controlled and validated
 | S7-R7 | README Stage 7 section + AI log | `README.md`, `ai-log/etapa-07.md` | read |
 | S7-R8 | commit `"Stage 7"` pushed | link to the commit | commit history |
 
+## Stage 8: routing and detail page
+Multi-page Single Page Application powered by React Router (`/` for the instrument list and creation form, `/instrumente/:id` for individual instrument details, `/despre` for the project overview and acoustic instrument encyclopedia, and `*` for the 404 Not Found page). Component and page styles were refactored into isolated CSS Modules (`*.module.css`), leaving only design tokens and shared utility classes in `index.css`.
+
+## Status
+- [x] Stage 1: static mockup
+- [x] Stage 2: interactive logic
+- [x] Stage 3: component decomposition
+- [x] Stage 4: state management and derived counters
+- [x] Stage 5: CSS variables and theme toggle
+- [x] Stage 6: data from a mock API
+- [x] Stage 7: form and validation
+- [x] Stage 8: routing and detail page
+- [ ] Stage 9: own backend with Express
+
+## Verification Table - Stage 8 
+
+| ID | Requirement | Where (permalink) | How to check |
+| :--- | :--- | :--- | :--- |
+| S8-R1 | header navigation changes page without reload | `frontend/src/App.jsx`, `frontend/src/components/Layout.jsx` | click links, watch Network |
+| S8-R2 | click on an item opens its detail page | `frontend/src/components/InstrumentCard.jsx`, `frontend/src/pages/InstrumentDetaliuPage.jsx` | click a title |
+| S8-R3 | refresh on the detail URL works; missing id shows an error | `frontend/src/pages/InstrumentDetaliuPage.jsx` | refresh `/instrumente/1`, open `/instrumente/999` |
+| S8-R4 | unknown URL shows the app 404 page | `frontend/src/App.jsx` (`path="*"`), `frontend/src/pages/NotFoundPage.jsx` | open `/ceva` |
+| S8-R5 | each component has its `.module.css`; `index.css` only shared styles | `frontend/src/components`, `frontend/src/pages`, `frontend/src/index.css` | read |
+| S8-R6 | `data-testid` attributes from tables 7.3 and 8.2; detail route `/<resource>/:id` | `Layout.jsx`, `InstrumentCard.jsx`, `InstrumentDetaliuPage.jsx`, `NotFoundPage.jsx` | `querySelector` in the console |
+| S8-R7 | README Stage 8 section + AI log | `README.md`, `ai-log/etapa-08.md` | read |
+| S8-R8 | commit `"Stage 8"` pushed | link to the commit | commit history |
