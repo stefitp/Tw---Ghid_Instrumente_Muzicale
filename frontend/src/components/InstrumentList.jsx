@@ -1,4 +1,5 @@
 import InstrumentCard from "./InstrumentCard.jsx";
+import styles from "./InstrumentList.module.css";
 
 export default function InstrumentList({ instrumente, onToggle, onDelete }) {
   if (instrumente.length === 0) {
@@ -10,7 +11,7 @@ export default function InstrumentList({ instrumente, onToggle, onDelete }) {
   }
 
   return (
-    <ul className="item-list">
+    <ul className={styles.list}>
       {instrumente.map((instrument) => (
         <InstrumentCard
           key={instrument.id}

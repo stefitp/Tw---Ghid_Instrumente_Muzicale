@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f5f3ef;
+  --card: #ffffff;
+  --card-hover: #faf8f5;
+  --text: #1a1714;
+  --muted: #736b63;
+  --border: #e3ded8;
+  --accent: #d97706;
+  --accent-soft: rgba(217, 119, 6, 0.12);
+  --header-text: #ffffff;
+
+  --coarde: #ea580c;
+  --suflat: #0284c7;
+  --percutie: #e11d48;
+  --danger: #dc2626;
+
+  --error-bg: #fdf2f8;
+  --error-border: #fbcfe8;
+
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c0b0a;
+    --card: #161412;
+    --card-hover: #1f1c19;
+    --text: #f7f5f0;
+    --muted: #9c9388;
+    --border: #2c2722;
+    --accent: #f59e0b;
+    --accent-soft: rgba(245, 158, 11, 0.12);
+    --header-text: #ffffff;
+
+    --coarde: #f97316;
+    --suflat: #06b6d4;
+    --percutie: #f43f5e;
+    --danger: #ef4444;
+
+    --error-bg: #3b1d2e;
+    --error-border: #6b2a4a;
+
+    --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.6);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0c0b0a;
+  --card: #161412;
+  --card-hover: #1f1c19;
+  --text: #f7f5f0;
+  --muted: #9c9388;
+  --border: #2c2722;
+  --accent: #f59e0b;
+  --accent-soft: rgba(245, 158, 11, 0.12);
+  --header-text: #ffffff;
+
+  --coarde: #f97316;
+  --suflat: #06b6d4;
+  --percutie: #f43f5e;
+  --danger: #ef4444;
+
+  --error-bg: #3b1d2e;
+  --error-border: #6b2a4a;
+
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+a {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.panel h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+}
+
+.info {
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-style: italic;
+  padding: 18px 0;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1.05rem;
+}
+
+.error {
+  color: var(--danger);
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.error code {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.btn {
+  padding: 13px 18px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease, filter 0.2s ease;
+}
+
+.btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  border: 1px solid var(--danger);
+  background: transparent;
+  color: var(--danger);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-danger:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: scale(1.04);
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #fff;
+}
+
+.badge-coarde { background-color: var(--coarde); }
+.badge-suflat { background-color: var(--suflat); }
+.badge-percutie { background-color: var(--percutie); }
+
+@media (max-width: 700px) {
+  .panel {
+    padding: 18px;
+  }
+}

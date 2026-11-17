@@ -1,10 +1,6 @@
 import { useState } from "react";
-
-const FAMILII = [
-  { value: "coarde", label: "Strings (Coarde)" },
-  { value: "suflat", label: "Winds (Suflat)" },
-  { value: "percutie", label: "Percussion (Percuție)" },
-];
+import { FAMILII } from "../constants.js";
+import styles from "./InstrumentForm.module.css";
 
 const NUME_MAX = 100;
 
@@ -16,15 +12,15 @@ export default function InstrumentForm({ onAdd }) {
 
   function valideaza() {
     const text = nume.trim();
-    if (text === "") return "Numele instrumentului este obligatoriu.";
+    if (text === "") return "Instrument name is required.";
     if (text.length > NUME_MAX) {
-      return `Numele are maximum ${NUME_MAX} de caractere.`;
+      return `Instrument name must be at most ${NUME_MAX} characters.`;
     }
     return "";
   }
 
   async function handleSubmit(e) {
-    e.preventDefault(); // oprește reîncărcarea paginii
+    e.preventDefault();
     const mesaj = valideaza();
     if (mesaj) {
       setEroare(mesaj);
@@ -47,7 +43,7 @@ export default function InstrumentForm({ onAdd }) {
 
   return (
     <form
-      className="instrument-form"
+      className={styles.form}
       onSubmit={handleSubmit}
       noValidate
       data-testid="form"
@@ -86,8 +82,8 @@ export default function InstrumentForm({ onAdd }) {
         </p>
       )}
 
-      <button type="submit" disabled={trimite} data-testid="form-submit">
-        {trimite ? "Se salvează..." : "Adaugă instrument"}
+      <button type="submit" className="btn" disabled={trimite} data-testid="form-submit">
+        {trimite ? "Saving..." : "Add Instrument"}
       </button>
     </form>
   );

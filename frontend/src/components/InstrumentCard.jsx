@@ -1,8 +1,6 @@
-const ETICHETE_FAMILIE = {
-  coarde: "Strings",
-  suflat: "Winds",
-  percutie: "Percussion"
-};
+import { Link } from "react-router-dom";
+import { ETICHETE_FAMILIE } from "../constants.js";
+import styles from "./InstrumentCard.module.css";
 
 function getIconita(instrument) {
   const numeMic = instrument.nume.toLowerCase();
@@ -16,45 +14,51 @@ function getIconita(instrument) {
 
 export default function InstrumentCard({ instrument, onToggle, onDelete }) {
   const iconita = getIconita(instrument);
+  const familieClass = styles[`card_${instrument.familie}`] || "";
 
   return (
     <li
-      className={`item-card card-${instrument.familie} ${instrument.invatat ? "done" : ""}`}
+      className={`${styles.card} ${familieClass} ${instrument.invatat ? styles.done : ""}`}
       data-testid="item"
       data-id={instrument.id}
     >
       {/* Zona superioară: Avatar animat + Familie */}
-      <div className="card-top">
-        <span className="instrument-avatar rotating-avatar" aria-hidden="true">
+      <div className={styles.cardTop}>
+        <span className={styles.avatar} aria-hidden="true">
           {iconita}
         </span>
-        <span className="card-family-label">
+        <span className={styles.familyLabel}>
           {ETICHETE_FAMILIE[instrument.familie] || instrument.familie}
         </span>
       </div>
 
-      {/* Zona principala: Checkbox controlat cu click pe tot titlul */}
-      <div className="card-body">
-        <label className="instrument-main">
+      {/* Zona principală: Checkbox + Link către pagina de detaliu */}
+      <div className={styles.cardBody}>
+        <div className={styles.main}>
           <input
             type="checkbox"
             checked={instrument.invatat}
             onChange={() => onToggle(instrument.id)}
+            aria-label={`Mark ${instrument.nume}`}
             data-testid="item-toggle"
           />
-          <h3 className="instrument-title" data-testid="item-title">
+          <Link
+            to={`/instrumente/${instrument.id}`}
+            className={styles.titleLink}
+            data-testid="item-link"
+          >
             {instrument.nume}
-          </h3>
-        </label>
+          </Link>
+        </div>
       </div>
 
-      {/* Zona inferioară: Badge, Status și Buton Delete accesibil */}
-      <div className="card-footer">
-        <div className="footer-meta">
+      {/* Zona inferioară: Badge, Status și Buton Delete */}
+      <div className={styles.cardFooter}>
+        <div className={styles.footerMeta}>
           <span className={`badge badge-${instrument.familie}`}>
             {ETICHETE_FAMILIE[instrument.familie] || instrument.familie}
           </span>
-          <span className="status">
+          <span className={styles.status}>
             {instrument.invatat ? "✓ Learned" : "To Learn"}
           </span>
         </div>
