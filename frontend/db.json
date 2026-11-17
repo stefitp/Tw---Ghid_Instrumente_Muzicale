@@ -9,7 +9,7 @@
     {
       "id": 2,
       "nume": "Acoustic Piano",
-      "invatat": true,
+      "invatat": false,
       "familie": "coarde"
     },
     {
@@ -21,14 +21,8 @@
     {
       "id": 4,
       "nume": "Electronic Drums",
-      "invatat": true,
-      "familie": "percutie"
-    },
-    {
-      "id": 5,
-      "nume": "Concert Flute",
       "invatat": false,
-      "familie": "suflat"
+      "familie": "percutie"
     }
   ]
 }

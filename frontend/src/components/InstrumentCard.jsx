@@ -18,7 +18,11 @@ export default function InstrumentCard({ instrument, onToggle, onDelete }) {
   const iconita = getIconita(instrument);
 
   return (
-    <li className={`item-card card-${instrument.familie} ${instrument.invatat ? "done" : ""}`}>
+    <li
+      className={`item-card card-${instrument.familie} ${instrument.invatat ? "done" : ""}`}
+      data-testid="item"
+      data-id={instrument.id}
+    >
       {/* Zona superioară: Avatar animat + Familie */}
       <div className="card-top">
         <span className="instrument-avatar rotating-avatar" aria-hidden="true">
@@ -29,15 +33,18 @@ export default function InstrumentCard({ instrument, onToggle, onDelete }) {
         </span>
       </div>
 
-      {/* Zona principală: Checkbox controlat cu click pe tot titlul */}
+      {/* Zona principala: Checkbox controlat cu click pe tot titlul */}
       <div className="card-body">
         <label className="instrument-main">
           <input
             type="checkbox"
             checked={instrument.invatat}
             onChange={() => onToggle(instrument.id)}
+            data-testid="item-toggle"
           />
-          <h3 className="instrument-title">{instrument.nume}</h3>
+          <h3 className="instrument-title" data-testid="item-title">
+            {instrument.nume}
+          </h3>
         </label>
       </div>
 
@@ -57,6 +64,7 @@ export default function InstrumentCard({ instrument, onToggle, onDelete }) {
           className="btn-danger"
           onClick={() => onDelete(instrument.id)}
           aria-label={`Delete ${instrument.nume}`}
+          data-testid="item-delete"
         >
           Delete
         </button>

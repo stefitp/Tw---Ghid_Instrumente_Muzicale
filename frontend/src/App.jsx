@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import InstrumentList from "./components/InstrumentList.jsx";
-import { fetchInstrumente } from "./api.js";
+import InstrumentForm from "./components/InstrumentForm.jsx";
+import {
+  createInstrument,
+  deleteInstrument,
+  fetchInstrumente,
+  updateInstrument,
+} from "./api.js";
 
 function temaInitiala() {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
@@ -58,16 +64,33 @@ export default function App() {
     };
   }, []);
 
-  function handleToggle(id) {
-    setInstrumente((prev) =>
-      prev.map((inst) =>
-        inst.id === id ? { ...inst, invatat: !inst.invatat } : inst
-      )
-    );
+  // Întâi serverul, apoi state-ul: pe ecran ajunge doar ce s-a salvat
+  async function handleAdd(nouInstrument) {
+    const creat = await createInstrument(nouInstrument);
+    setInstrumente((prev) => [...prev, creat]);
   }
 
-  function handleDelete(id) {
-    setInstrumente((prev) => prev.filter((inst) => inst.id !== id));
+  async function handleToggle(id) {
+    const instrument = instrumente.find((inst) => inst.id === id);
+    try {
+      const actualizat = await updateInstrument(id, {
+        invatat: !instrument.invatat,
+      });
+      setInstrumente((prev) =>
+        prev.map((inst) => (inst.id === id ? actualizat : inst))
+      );
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleDelete(id) {
+    try {
+      await deleteInstrument(id);
+      setInstrumente((prev) => prev.filter((inst) => inst.id !== id));
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   function handleTema() {
@@ -196,17 +219,26 @@ export default function App() {
 
       <main className="container">
         <section className="panel">
+          <h2>Add Instrument</h2>
+          <InstrumentForm onAdd={handleAdd} />
+        </section>
+
+        <section className="panel">
           <h2>My Collection</h2>
 
-          {loading && <p className="info">Se încarcă catalogul muzical...</p>}
+          {loading && (
+            <p className="info" data-testid="loading">
+              Se încarcă catalogul muzical...
+            </p>
+          )}
 
           {error && (
-            <p className="error">
+            <p className="error" data-testid="error">
               Nu am putut încărca datele: {error}. Rulează <code>npm run api</code>?
             </p>
           )}
 
-          {!loading && !error && (
+          {!loading && (
             <InstrumentList
               instrumente={instrumente}
               onToggle={handleToggle}
